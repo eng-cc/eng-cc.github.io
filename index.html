@@ -234,7 +234,7 @@
               
                 
                 <a class="post-title-link" href="/2016/05/12/test/" itemprop="url">
-                  vue
+                  webpack+vue+vue-router构建大型单页应用
                 </a>
               
             
@@ -277,10 +277,9 @@
       
         
           
-            <p>#webpack+vue+vue-router构建大型单页应用</p>
-<p>###前言<br>前些日子被boss拉去做一个学校的管理系统，静态页面是已经写好的，看了一下文件目录（一脸蒙逼）<br><img src="http://7xtmfq.com1.z0.glb.clouddn.com/2016-05-02%2018:03:14%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt="文件结构"></p>
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前些日子被boss拉去做一个学校的管理系统，静态页面是已经写好的，看了一下文件目录（一脸蒙逼）<br><img src="http://7xtmfq.com1.z0.glb.clouddn.com/2016-05-02%2018:03:14%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt="文件结构"></p>
 <p> 竟然有35个页面之多，而且许多页面里都有大量的表单，数据量相当大，刚好近期工作室另一个项目用了vue的技术栈,所以也想用vue来构建一个比较大型的单页应用。<br> 至于为啥选这套技术栈主要原因有两个吧，一是比较轻、方便操作，还有就是vue双向数据绑定比较适合项目实际。在接下来的文章中我会从头跟大家分享项目过程中一些比较重要的东西和遇到的一些问题。</p>
-<p>###脚手架<br>之前一直都在用gulp作为脚手架工具进行检查编译压缩等任务，喜欢它的流的概念，所以最外层还是决定用gulp来搭，下面详细说下用到的一些工具。</p>
+<h3 id="脚手架"><a href="#脚手架" class="headerlink" title="脚手架"></a>脚手架</h3><p>之前一直都在用gulp作为脚手架工具进行检查编译压缩等任务，喜欢它的流的概念，所以最外层还是决定用gulp来搭，下面详细说下用到的一些工具。</p>
 <blockquote>
 <ul>
 <li><a href="https://www.npmjs.com/package/gulp-webpack" target="_blank" rel="external">gulp-webpack</a><br>webpack的gulp版，语法和webpack基本一致，配置好文件入口和出口就可以</li>
