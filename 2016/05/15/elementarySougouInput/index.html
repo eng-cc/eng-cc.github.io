@@ -1,0 +1,601 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="elementary," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="elementary是基于ubuntu的linux发行版，因为它及其漂亮的界面我第一次见它就深深地喜欢上了，并把elementary作为了常用的系统，没有特殊情况已经基本不打开我的windows了，安装配置过程和ubuntu基本一样，比较坑的就是中文输入了。
+先添加fcitx源12sudo add-apt-repository ppa:fcitx-team/nightlysudo apt-get">
+<meta property="og:type" content="article">
+<meta property="og:title" content="elementary 下安装搜狗输入法">
+<meta property="og:url" content="http://yoursite.com/2016/05/15/elementarySougouInput/index.html">
+<meta property="og:site_name" content="cc的前端小站">
+<meta property="og:description" content="elementary是基于ubuntu的linux发行版，因为它及其漂亮的界面我第一次见它就深深地喜欢上了，并把elementary作为了常用的系统，没有特殊情况已经基本不打开我的windows了，安装配置过程和ubuntu基本一样，比较坑的就是中文输入了。
+先添加fcitx源12sudo add-apt-repository ppa:fcitx-team/nightlysudo apt-get">
+<meta property="og:updated_time" content="2016-05-15T07:40:10.515Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="elementary 下安装搜狗输入法">
+<meta name="twitter:description" content="elementary是基于ubuntu的linux发行版，因为它及其漂亮的界面我第一次见它就深深地喜欢上了，并把elementary作为了常用的系统，没有特殊情况已经基本不打开我的windows了，安装配置过程和ubuntu基本一样，比较坑的就是中文输入了。
+先添加fcitx源12sudo add-apt-repository ppa:fcitx-team/nightlysudo apt-get">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6284478892325471000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> elementary 下安装搜狗输入法 | cc的前端小站 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">cc的前端小站</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">sccblog</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                elementary 下安装搜狗输入法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-15T15:37:08+08:00" content="2016-05-15">
+              2016-05-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/other/" itemprop="url" rel="index">
+                    <span itemprop="name">other</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>elementary是基于ubuntu的linux发行版，因为它及其漂亮的界面我第一次见它就深深地喜欢上了，并把elementary作为了常用的系统，没有特殊情况已经基本不打开我的windows了，安装配置过程和ubuntu基本一样，比较坑的就是中文输入了。</p>
+<h4 id="先添加fcitx源"><a href="#先添加fcitx源" class="headerlink" title="先添加fcitx源"></a>先添加fcitx源</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:fcitx-team/nightly</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<h4 id="安装fcitx输入法"><a href="#安装fcitx输入法" class="headerlink" title="安装fcitx输入法"></a>安装fcitx输入法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install fcitx fcitx-config-gtk fcitx-sunpinyin fcitx-googlepinyin fcitx-module-cloudpinyin</span><br><span class="line">sudo apt-get install fcitx-table-all</span><br></pre></td></tr></table></figure>
+<h4 id="用im-config选择默认输入法"><a href="#用im-config选择默认输入法" class="headerlink" title="用im-config选择默认输入法"></a>用im-config选择默认输入法</h4><p>可能需要先安装im-config<br>控制台输入<figure class="highlight plain"><figcaption><span>```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">弹出窗口后一路点确定在最后一个窗口选fcitx。</span><br><span class="line"></span><br><span class="line">![][1]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  [1]: http://7xtmfq.com1.z0.glb.clouddn.com/2016-05-15%2015:26:51%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png</span><br><span class="line">  </span><br><span class="line">#### 安装搜狗输入法</span><br><span class="line">elementary基于ubuntu 但系统信息长这样</span><br></pre></td></tr></table></figure></p>
+<p>danzaiNAME=”elementary OS”<br>VERSION=”0.3.2 Freya”<br>ID=”elementary OS”<br>ID_LIKE=ubuntu<br>PRETTY_NAME=”elementary OS Freya”<br>VERSION_ID=”0.3.2”<br>HOME_URL=”<a href="http://elementary.io/" target="_blank" rel="external">http://elementary.io/</a>“<br>SUPPORT_URL=”<a href="http://elementary.io/support/" target="_blank" rel="external">http://elementary.io/support/</a>“<br>BUG_REPORT_URL=”<a href="https://bugs.launchpad.net/elementary/+filebug" target="_blank" rel="external">https://bugs.launchpad.net/elementary/+filebug</a>“<br>```<br>ID=”elementary OS” 会导致搜狗输入法安装失败还可能导致apt-get不能用，改为 ID=”ubuntu”即可正常安装，重启系统即可输入中文。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/elementary/" rel="tag">#elementary</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/15/canvasApi/" rel="next" title="canvas api 详解">
+                <i class="fa fa-chevron-left"></i> canvas api 详解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xtmfq.com1.z0.glb.clouddn.com/02.png"
+               alt="scc" />
+          <p class="site-author-name" itemprop="name">scc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              friends
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.lxxyx.win/" title="0" target="_blank">0</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#先添加fcitx源"><span class="nav-number">1.</span> <span class="nav-text">先添加fcitx源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装fcitx输入法"><span class="nav-number">2.</span> <span class="nav-text">安装fcitx输入法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用im-config选择默认输入法"><span class="nav-number">3.</span> <span class="nav-text">用im-config选择默认输入法</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">scc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
