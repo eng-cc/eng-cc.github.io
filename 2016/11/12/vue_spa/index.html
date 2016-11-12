@@ -1,0 +1,677 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="vue," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="过去的一年里社区和业内对Vue的关注度不断增加，个人对Vue也可以说是一见钟情，最近团队产品的技术栈也都是以Vue为中心的，补一篇暑假就想写的关于部署的文章。
+目标
+前后端完全分离，最大程度上解耦
+nginx代理前端静态资源
+webhock 自动打包部署
+生成更新日志
+
+nginx配置vue+webpack打包出来的文件做好了版本控制和依赖管理，nginx主要用来转发静态文件后端只提供api，并单">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue SPA 前端自动化部署">
+<meta property="og:url" content="http://yoursite.com/2016/11/12/vue_spa/index.html">
+<meta property="og:site_name" content="cc的前端小站">
+<meta property="og:description" content="过去的一年里社区和业内对Vue的关注度不断增加，个人对Vue也可以说是一见钟情，最近团队产品的技术栈也都是以Vue为中心的，补一篇暑假就想写的关于部署的文章。
+目标
+前后端完全分离，最大程度上解耦
+nginx代理前端静态资源
+webhock 自动打包部署
+生成更新日志
+
+nginx配置vue+webpack打包出来的文件做好了版本控制和依赖管理，nginx主要用来转发静态文件后端只提供api，并单">
+<meta property="og:image" content="http://7xtmfq.com1.z0.glb.clouddn.com/vue_spa_deploy.png">
+<meta property="og:updated_time" content="2016-11-12T06:21:25.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue SPA 前端自动化部署">
+<meta name="twitter:description" content="过去的一年里社区和业内对Vue的关注度不断增加，个人对Vue也可以说是一见钟情，最近团队产品的技术栈也都是以Vue为中心的，补一篇暑假就想写的关于部署的文章。
+目标
+前后端完全分离，最大程度上解耦
+nginx代理前端静态资源
+webhock 自动打包部署
+生成更新日志
+
+nginx配置vue+webpack打包出来的文件做好了版本控制和依赖管理，nginx主要用来转发静态文件后端只提供api，并单">
+<meta name="twitter:image" content="http://7xtmfq.com1.z0.glb.clouddn.com/vue_spa_deploy.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6284478892325471000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> Vue SPA 前端自动化部署 | cc的前端小站 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">cc的前端小站</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">sccblog</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Vue SPA 前端自动化部署
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-12T14:31:14+08:00" content="2016-11-12">
+              2016-11-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">programming</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/12/vue_spa/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/12/vue_spa/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>过去的一年里社区和业内对Vue的关注度不断增加，个人对Vue也可以说是一见钟情，最近团队产品的技术栈也都是以Vue为中心的，补一篇暑假就想写的关于部署的文章。</p>
+<h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><ol>
+<li>前后端完全分离，最大程度上解耦</li>
+<li>nginx代理前端静态资源</li>
+<li>webhock 自动打包部署</li>
+<li>生成更新日志</li>
+</ol>
+<h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><p>vue+webpack打包出来的文件做好了版本控制和依赖管理，nginx主要用来转发静态文件<br>后端只提供api，并单独部署在其他非对外端口，nginx负责将所有数据请求（有特殊url前缀）转发到后端服务<br>nginx 具体用法请自行google，这里只贴关键部分的配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name  xxx.com;</span><br><span class="line">        root /your/source/dist; # 静态资源目录</span><br><span class="line">        index index.html; # 入口文件</span><br><span class="line">        # 将数据请求转发到后端服务</span><br><span class="line">        location /api &#123;</span><br><span class="line">             proxy_pass http://localhost:8087/api;</span><br><span class="line">        &#125;</span><br><span class="line">      # 配合 html5 history 模式的前端路由，防止出现404</span><br><span class="line">      location / &#123;</span><br><span class="line">            try_files /index.html =404;</span><br><span class="line">        &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="webhock-自动部署并生成日志"><a href="#webhock-自动部署并生成日志" class="headerlink" title="webhock 自动部署并生成日志"></a>webhock 自动部署并生成日志</h3><p>webhock能明显提高工作效率，引用一张@<a href="http://blog.yangxitian.cn/" target="_blank" rel="external">shelter</a>的图可以很形象的看出其优势。<br><img src="http://7xtmfq.com1.z0.glb.clouddn.com/vue_spa_deploy.png" alt="图片"></p>
+<p>用nodeJs实现一个接受信号的小程序，具体代码只适合coding的webhock，github等同理<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webhock.js</span></span><br><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>)</span><br><span class="line"><span class="keyword">const</span> exec = <span class="built_in">require</span>(<span class="string">'exec'</span>)</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PORT = <span class="number">8004</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> deployServer = http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">request, response</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> body = []</span><br><span class="line">  request.on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    response.writeHead(<span class="number">500</span>)</span><br><span class="line">    response.end(<span class="string">'server error\n'</span> + err)</span><br><span class="line">  &#125;).on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>&#123;</span><br><span class="line">    body.push(chunk)</span><br><span class="line">  &#125;).on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    body = Buffer.concat(body).toString()</span><br><span class="line">    <span class="keyword">let</span> deployMsg = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> json = <span class="built_in">JSON</span>.parse(body)</span><br><span class="line">      <span class="built_in">console</span>.log(json)</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; json.commits.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (json.commits[i].short_message.match(<span class="string">'deploy'</span>)) &#123;</span><br><span class="line">          deployMsg = json.commits[i]</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (deployMsg) &#123;</span><br><span class="line">        <span class="keyword">let</span> commands = [</span><br><span class="line">          <span class="string">'git pull'</span>,</span><br><span class="line">          <span class="string">`git reset --hard <span class="subst">$&#123;deployMsg.sha&#125;</span>`</span>,</span><br><span class="line">          <span class="string">'npm run build'</span>,</span><br><span class="line">          <span class="string">'cp -r ./dist/* ./deploy'</span></span><br><span class="line">        ].join(<span class="string">' &amp;&amp; '</span>)</span><br><span class="line">        exec(commands, <span class="function"><span class="keyword">function</span> (<span class="params">err, out, code</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (err <span class="keyword">instanceof</span> <span class="built_in">Error</span>) &#123;</span><br><span class="line">            addLog(err, deployMsg)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err)</span><br><span class="line">          &#125;</span><br><span class="line">          addLog(<span class="literal">null</span>, deployMsg)</span><br><span class="line">          process.stderr.write(err)</span><br><span class="line">          process.stdout.write(out)</span><br><span class="line">          response.writeHead(<span class="number">200</span>)</span><br><span class="line">          response.end(<span class="string">'Deploy Done'</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        response.writeHead(<span class="number">200</span>)</span><br><span class="line">        response.end(<span class="string">'no Deploy'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      response.writeHead(<span class="number">500</span>)</span><br><span class="line">      response.end(<span class="string">'server error\n'</span> + e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>其实代码很简单，这里要说一下的是commands里面最后一个cp命令，把打包出来的文件复制到另一个目录如果重名就覆盖，deploy目录才是上线文件的目录。webpack打包时即使是一个chunk文件的更新都会把上次的文件全部删掉，在打包完成前dist目录是空的，这段时间会返回404，而且当项目很大时打包时间比较长，刚好webapck打包出的文件都有MD5签名，把打完的文件复制到上线文件目录还是相当安全的，弊端就是deploy目录会留下旧的废弃文件，定期清理就好。</p>
+<p>顺便贴一下生成log文件的代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> addLog = <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">  <span class="keyword">let</span> fileName = date.getFullYear() + <span class="string">'-'</span> + (date.getMonth() + <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">let</span> time = date.getHours() + <span class="string">'-'</span> + date.getMinutes() + <span class="string">'-'</span> + date.getSeconds()</span><br><span class="line">  <span class="keyword">let</span> writeMsg = <span class="string">`[<span class="subst">$&#123;time&#125;</span>]: <span class="subst">$&#123;data.committer.name&#125;</span> has deploy width message <span class="subst">$&#123;data.short_message&#125;</span>`</span></span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    writeMsg += <span class="string">'------deploy fail'</span></span><br><span class="line">  &#125;</span><br><span class="line">  writeMsg += <span class="string">'\n'</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    fs.open(<span class="string">`./logs/<span class="subst">$&#123;fileName&#125;</span>.log`</span>, <span class="string">'a'</span>, (err, fd) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        fs.writeFile(<span class="string">`./logs/<span class="subst">$&#123;fileName&#125;</span>.log`</span>, writeMsg, (err) =&gt; &#123;</span><br><span class="line">          <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      fs.write(fd, writeMsg, (err) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'done'</span>)</span><br><span class="line">      fs.closeSync(fd)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">▶ cat ./logs/2016-11.log </span><br><span class="line">[11-1-57]: scc has deploy width message <span class="built_in">test</span> deploy</span><br><span class="line">[11-2-26]: guyskk has deploy width message delete some deploy</span><br><span class="line">[11-5-34]: scc has deploy width message <span class="built_in">test</span> deploy</span><br><span class="line">[11-7-26]: scc has deploy width message <span class="built_in">test</span> deploy</span><br><span class="line">[11-7-55]: scc has deploy width message <span class="built_in">test</span> deploy------deploy fail</span><br><span class="line">[11-7-56]: scc has deploy width message <span class="built_in">test</span> deploy------deploy fail</span><br></pre></td></tr></table></figure></p>
+<h3 id="pm2部署"><a href="#pm2部署" class="headerlink" title="pm2部署"></a>pm2部署</h3><p>webhock.js需要一直在有公网ip的服务器上运行等待调用，这里用pm2即可轻松部署<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install pm2 -g</span><br><span class="line">pm2 start webhock.js</span><br></pre></td></tr></table></figure></p>
+<p>大功告成</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag">#vue</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/15/elementarySougouInput/" rel="next" title="elementary 下安装搜狗输入法">
+                <i class="fa fa-chevron-left"></i> elementary 下安装搜狗输入法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/12/vue_spa/"
+           data-title="Vue SPA 前端自动化部署" data-url="http://yoursite.com/2016/11/12/vue_spa/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xtmfq.com1.z0.glb.clouddn.com/02.png"
+               alt="scc" />
+          <p class="site-author-name" itemprop="name">scc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              friends
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.lxxyx.win/" title="lxxyx" target="_blank">lxxyx</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.zhibinnet.com/" title="island" target="_blank">island</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.vadxq.com/" title="vadxq" target="_blank">vadxq</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://junfeisu.github.io/" title="junfeisu" target="_blank">junfeisu</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhanglun.me/" title="张小伦" target="_blank">张小伦</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx配置"><span class="nav-number">2.</span> <span class="nav-text">nginx配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webhock-自动部署并生成日志"><span class="nav-number">3.</span> <span class="nav-text">webhock 自动部署并生成日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pm2部署"><span class="nav-number">4.</span> <span class="nav-text">pm2部署</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">scc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"sccblog"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
