@@ -84,19 +84,16 @@
 
 
 
-<meta name="description" content="前段时间有个设计的小伙伴给我推荐了好多日本的网站，个个炫酷到飞起，身为重度前端职业病患者当然会审查元素看一下都是怎么实现的了，看完总结出：日本的网速领先国内好几倍（很多背景是插的mp4……），当然也有一部分是canvas做的，比如这个时钟效果。之前就对canvas感兴趣并了解过一点，看过这些网站更坚定了去认真学一下的决心，同时也记了些笔记。
-定义canvas绘制环境123456var canvas">
+<meta name="description" content="前段时间有个设计的小伙伴给我推荐了好多日本的网站，个个炫酷到飞起，身为重度前端职业病患者当然会审查元素看一下都是怎么实现的了，看完总结出：日本的网速领先国内好几倍（很多背景是插的mp4……），当然也有一部分是canvas做的，比如这个时钟效果。之前就对canvas感兴趣并了解过一点，看过这些网站更坚定了去认真学一下的决心，同时也记了些笔记。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="canvas api 详解">
 <meta property="og:url" content="http://yoursite.com/2016/05/15/canvasApi/index.html">
 <meta property="og:site_name" content="cc的前端小站">
-<meta property="og:description" content="前段时间有个设计的小伙伴给我推荐了好多日本的网站，个个炫酷到飞起，身为重度前端职业病患者当然会审查元素看一下都是怎么实现的了，看完总结出：日本的网速领先国内好几倍（很多背景是插的mp4……），当然也有一部分是canvas做的，比如这个时钟效果。之前就对canvas感兴趣并了解过一点，看过这些网站更坚定了去认真学一下的决心，同时也记了些笔记。
-定义canvas绘制环境123456var canvas">
-<meta property="og:updated_time" content="2016-05-17T12:27:27.748Z">
+<meta property="og:description" content="前段时间有个设计的小伙伴给我推荐了好多日本的网站，个个炫酷到飞起，身为重度前端职业病患者当然会审查元素看一下都是怎么实现的了，看完总结出：日本的网速领先国内好几倍（很多背景是插的mp4……），当然也有一部分是canvas做的，比如这个时钟效果。之前就对canvas感兴趣并了解过一点，看过这些网站更坚定了去认真学一下的决心，同时也记了些笔记。">
+<meta property="og:updated_time" content="2016-12-31T07:33:12.538Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="canvas api 详解">
-<meta name="twitter:description" content="前段时间有个设计的小伙伴给我推荐了好多日本的网站，个个炫酷到飞起，身为重度前端职业病患者当然会审查元素看一下都是怎么实现的了，看完总结出：日本的网速领先国内好几倍（很多背景是插的mp4……），当然也有一部分是canvas做的，比如这个时钟效果。之前就对canvas感兴趣并了解过一点，看过这些网站更坚定了去认真学一下的决心，同时也记了些笔记。
-定义canvas绘制环境123456var canvas">
+<meta name="twitter:description" content="前段时间有个设计的小伙伴给我推荐了好多日本的网站，个个炫酷到飞起，身为重度前端职业病患者当然会审查元素看一下都是怎么实现的了，看完总结出：日本的网速领先国内好几倍（很多背景是插的mp4……），当然也有一部分是canvas做的，比如这个时钟效果。之前就对canvas感兴趣并了解过一点，看过这些网站更坚定了去认真学一下的决心，同时也记了些笔记。">
 
 
 
@@ -301,6 +298,7 @@
 
       
         <p>前段时间有个设计的小伙伴给我推荐了好多日本的网站，个个炫酷到飞起，身为重度前端职业病患者当然会审查元素看一下都是怎么实现的了，看完总结出：日本的网速领先国内好几倍（很多背景是插的mp4……），当然也有一部分是canvas做的，比如<a href="http://marunouchi.mec.co.jp/" target="_blank" rel="external">这个</a>时钟效果。之前就对canvas感兴趣并了解过一点，看过这些网站更坚定了去认真学一下的决心，同时也记了些笔记。</p>
+<a id="more"></a>
 <h4 id="定义canvas绘制环境"><a href="#定义canvas绘制环境" class="headerlink" title="定义canvas绘制环境"></a>定义canvas绘制环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var canvas = document.getElementById(&apos;canvas&apos;)</span><br><span class="line">if (canvas.getContext(&apos;2d&apos;)) &#123;</span><br><span class="line">	var context = canvas.getContext(&apos;2d&apos;)</span><br><span class="line">&#125;else&#123;</span><br><span class="line">	alert(&apos;不支持canvas&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="线条API"><a href="#线条API" class="headerlink" title="线条API"></a>线条API</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">context.moveTo(x,y);<span class="comment">//绘制起始点</span></span><br><span class="line">context.lineTo(x,y);</span><br><span class="line">context.lineWidth = num;<span class="comment">//线条粗细</span></span><br><span class="line">context.strokeStyle = <span class="string">'color'</span>;<span class="comment">//线条颜色</span></span><br><span class="line">context.fillStyle = <span class="string">'color'</span>;<span class="comment">//填充颜色</span></span><br><span class="line">context.stroke();<span class="comment">//绘制</span></span><br><span class="line">context.fill();<span class="comment">//填充闭合区域</span></span><br><span class="line"><span class="comment">//先stroke再fill会导致边框的一半被填充为背景色</span></span><br><span class="line">context.beginPath();context.closePath();<span class="comment">//闭合工作区</span></span><br><span class="line">context.beginPath();context.closePath();<span class="comment">//区域中的线条会自动闭合。</span></span><br></pre></td></tr></table></figure>
 <h5 id="线条属性"><a href="#线条属性" class="headerlink" title="线条属性"></a>线条属性</h5><h6 id="lineCap"><a href="#lineCap" class="headerlink" title="lineCap"></a>lineCap</h6><p>context.lineCap=’’,线段的端点样式（线段的帽子）<br>三个可选属性：butt(默认),round(圆角),square(方角)；<br>tound和square会比默认长出一点。</p>
@@ -362,15 +360,11 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/12/test/" rel="next" title="webpack+vue+vue-router构建大型单页应用（一）">
-                <i class="fa fa-chevron-left"></i> webpack+vue+vue-router构建大型单页应用（一）
-              </a>
-            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/05/15/elementarySougouInput/" rel="prev" title="elementary 下安装搜狗输入法">
+              <a href="/2016/05/15/eslint/" rel="prev" title="elementary 下安装搜狗输入法">
                 elementary 下安装搜狗输入法 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -444,7 +438,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -461,7 +455,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

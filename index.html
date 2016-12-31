@@ -233,6 +233,128 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/31/summarize-2016/" itemprop="url">
+                  my 2016
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-31T15:56:08+08:00" content="2016-12-31">
+              2016-12-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/other/" itemprop="url" rel="index">
+                    <span itemprop="name">other</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/31/summarize-2016/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/31/summarize-2016/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在2016的最后半天里，为了更好的2017，回顾2016。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/31/summarize-2016/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/12/vue_spa/" itemprop="url">
                   Vue SPA 前端自动化部署
                 </a>
@@ -302,24 +424,12 @@
 
       
         
-          
-            <p>过去的一年里社区和业内对Vue的关注度不断增加，个人对Vue也可以说是一见钟情，最近团队产品的技术栈也都是以Vue为中心的，补一篇暑假就想写的关于部署的文章。</p>
-<h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><ol>
-<li>前后端完全分离，最大程度上解耦</li>
-<li>nginx代理前端静态资源</li>
-<li>webhock 自动打包部署</li>
-<li>生成更新日志</li>
-</ol>
-<h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><p>vue+webpack打包出来的文件做好了版本控制和依赖管理，nginx主要用来转发静态文件<br>后端只提供api，并单独部署在其他非对外端口，nginx负责将所有数据请求（有特殊url前缀）转发到后端服务<br>nginx 具体用法请自行google，这里只贴关键部分的配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name  xxx.com;</span><br><span class="line">        root /your/source/dist; # 静态资源目录</span><br><span class="line">        index index.html; # 入口文件</span><br><span class="line">        # 将数据请求转发到后端服务</span><br><span class="line">        location /api &#123;</span><br><span class="line">             proxy_pass http://localhost:8087/api;</span><br><span class="line">        &#125;</span><br><span class="line">      # 配合 html5 history 模式的前端路由，防止出现404</span><br><span class="line">      location / &#123;</span><br><span class="line">            try_files /index.html =404;</span><br><span class="line">        &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="webhock-自动部署并生成日志"><a href="#webhock-自动部署并生成日志" class="headerlink" title="webhock 自动部署并生成日志"></a>webhock 自动部署并生成日志</h3><p>webhock能明显提高工作效率，引用一张@<a href="http://blog.yangxitian.cn/" target="_blank" rel="external">shelter</a>的图可以很形象的看出其优势。<br><img src="http://7xtmfq.com1.z0.glb.clouddn.com/vue_spa_deploy.png" alt="图片"></p>
-<p>用nodeJs实现一个接受信号的小程序，具体代码只适合coding的webhock，github等同理<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webhock.js</span></span><br><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>)</span><br><span class="line"><span class="keyword">const</span> exec = <span class="built_in">require</span>(<span class="string">'exec'</span>)</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PORT = <span class="number">8004</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> deployServer = http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">request, response</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> body = []</span><br><span class="line">  request.on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    response.writeHead(<span class="number">500</span>)</span><br><span class="line">    response.end(<span class="string">'server error\n'</span> + err)</span><br><span class="line">  &#125;).on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>&#123;</span><br><span class="line">    body.push(chunk)</span><br><span class="line">  &#125;).on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    body = Buffer.concat(body).toString()</span><br><span class="line">    <span class="keyword">let</span> deployMsg = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> json = <span class="built_in">JSON</span>.parse(body)</span><br><span class="line">      <span class="built_in">console</span>.log(json)</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; json.commits.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (json.commits[i].short_message.match(<span class="string">'deploy'</span>)) &#123;</span><br><span class="line">          deployMsg = json.commits[i]</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (deployMsg) &#123;</span><br><span class="line">        <span class="keyword">let</span> commands = [</span><br><span class="line">          <span class="string">'git pull'</span>,</span><br><span class="line">          <span class="string">`git reset --hard <span class="subst">$&#123;deployMsg.sha&#125;</span>`</span>,</span><br><span class="line">          <span class="string">'npm run build'</span>,</span><br><span class="line">          <span class="string">'cp -r ./dist/* ./deploy'</span></span><br><span class="line">        ].join(<span class="string">' &amp;&amp; '</span>)</span><br><span class="line">        exec(commands, <span class="function"><span class="keyword">function</span> (<span class="params">err, out, code</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (err <span class="keyword">instanceof</span> <span class="built_in">Error</span>) &#123;</span><br><span class="line">            addLog(err, deployMsg)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err)</span><br><span class="line">          &#125;</span><br><span class="line">          addLog(<span class="literal">null</span>, deployMsg)</span><br><span class="line">          process.stderr.write(err)</span><br><span class="line">          process.stdout.write(out)</span><br><span class="line">          response.writeHead(<span class="number">200</span>)</span><br><span class="line">          response.end(<span class="string">'Deploy Done'</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        response.writeHead(<span class="number">200</span>)</span><br><span class="line">        response.end(<span class="string">'no Deploy'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      response.writeHead(<span class="number">500</span>)</span><br><span class="line">      response.end(<span class="string">'server error\n'</span> + e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>其实代码很简单，这里要说一下的是commands里面最后一个cp命令，把打包出来的文件复制到另一个目录如果重名就覆盖，deploy目录才是上线文件的目录。webpack打包时即使是一个chunk文件的更新都会把上次的文件全部删掉，在打包完成前dist目录是空的，这段时间会返回404，而且当项目很大时打包时间比较长，刚好webapck打包出的文件都有MD5签名，把打完的文件复制到上线文件目录还是相当安全的，弊端就是deploy目录会留下旧的废弃文件，定期清理就好。</p>
-<p>顺便贴一下生成log文件的代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> addLog = <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">  <span class="keyword">let</span> fileName = date.getFullYear() + <span class="string">'-'</span> + (date.getMonth() + <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">let</span> time = date.getHours() + <span class="string">'-'</span> + date.getMinutes() + <span class="string">'-'</span> + date.getSeconds()</span><br><span class="line">  <span class="keyword">let</span> writeMsg = <span class="string">`[<span class="subst">$&#123;time&#125;</span>]: <span class="subst">$&#123;data.committer.name&#125;</span> has deploy width message <span class="subst">$&#123;data.short_message&#125;</span>`</span></span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    writeMsg += <span class="string">'------deploy fail'</span></span><br><span class="line">  &#125;</span><br><span class="line">  writeMsg += <span class="string">'\n'</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    fs.open(<span class="string">`./logs/<span class="subst">$&#123;fileName&#125;</span>.log`</span>, <span class="string">'a'</span>, (err, fd) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        fs.writeFile(<span class="string">`./logs/<span class="subst">$&#123;fileName&#125;</span>.log`</span>, writeMsg, (err) =&gt; &#123;</span><br><span class="line">          <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      fs.write(fd, writeMsg, (err) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'done'</span>)</span><br><span class="line">      fs.closeSync(fd)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>效果如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">▶ cat ./logs/2016-11.log </span><br><span class="line">[11-1-57]: scc has deploy width message <span class="built_in">test</span> deploy</span><br><span class="line">[11-2-26]: guyskk has deploy width message delete some deploy</span><br><span class="line">[11-5-34]: scc has deploy width message <span class="built_in">test</span> deploy</span><br><span class="line">[11-7-26]: scc has deploy width message <span class="built_in">test</span> deploy</span><br><span class="line">[11-7-55]: scc has deploy width message <span class="built_in">test</span> deploy------deploy fail</span><br><span class="line">[11-7-56]: scc has deploy width message <span class="built_in">test</span> deploy------deploy fail</span><br></pre></td></tr></table></figure></p>
-<h3 id="pm2部署"><a href="#pm2部署" class="headerlink" title="pm2部署"></a>pm2部署</h3><p>webhock.js需要一直在有公网ip的服务器上运行等待调用，这里用pm2即可轻松部署<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install pm2 -g</span><br><span class="line">pm2 start webhock.js</span><br></pre></td></tr></table></figure></p>
-<p>大功告成</p>
-
-          
+          <p>过去的一年里社区和业内对Vue的关注度不断增加，个人对Vue也可以说是一见钟情，最近团队产品的技术栈也都是以Vue为中心的，补一篇暑假就想写的关于部署的文章。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/12/vue_spa/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -436,16 +546,134 @@
 
       
         
-          
-            <p>elementary是基于ubuntu的linux发行版，因为它及其漂亮的界面我第一次见它就深深地喜欢上了，并把elementary作为了常用的系统，没有特殊情况已经基本不打开我的windows了，安装配置过程和ubuntu基本一样，比较坑的就是中文输入了。</p>
-<h4 id="先添加fcitx源"><a href="#先添加fcitx源" class="headerlink" title="先添加fcitx源"></a>先添加fcitx源</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:fcitx-team/nightly</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-<h4 id="安装fcitx输入法"><a href="#安装fcitx输入法" class="headerlink" title="安装fcitx输入法"></a>安装fcitx输入法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install fcitx fcitx-config-gtk fcitx-sunpinyin fcitx-googlepinyin fcitx-module-cloudpinyin</span><br><span class="line">sudo apt-get install fcitx-table-all</span><br></pre></td></tr></table></figure>
-<h4 id="用im-config选择默认输入法"><a href="#用im-config选择默认输入法" class="headerlink" title="用im-config选择默认输入法"></a>用im-config选择默认输入法</h4><p>可能需要先安装im-config<br>控制台输入 im-config<br>弹出窗口后一路点确定在最后一个窗口选fcitx。</p>
-<p><img src="http://7xtmfq.com1.z0.glb.clouddn.com/2016-05-15%2015:26:51%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt=""></p>
-<h4 id="安装搜狗输入法"><a href="#安装搜狗输入法" class="headerlink" title="安装搜狗输入法"></a>安装搜狗输入法</h4><p>elementary基于ubuntu 但系统信息(/etc/os-release)长这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">danzaiNAME=&quot;elementary OS&quot;</span><br><span class="line">VERSION=&quot;0.3.2 Freya&quot;</span><br><span class="line">ID=&quot;elementary OS&quot;</span><br><span class="line">ID_LIKE=ubuntu</span><br><span class="line">PRETTY_NAME=&quot;elementary OS Freya&quot;</span><br><span class="line">VERSION_ID=&quot;0.3.2&quot;</span><br><span class="line">HOME_URL=&quot;http://elementary.io/&quot;</span><br><span class="line">SUPPORT_URL=&quot;http://elementary.io/support/&quot;</span><br><span class="line">BUG_REPORT_URL=&quot;https://bugs.launchpad.net/elementary/+filebug&quot;</span><br></pre></td></tr></table></figure></p>
-<p>ID=”elementary OS” 会导致搜狗输入法安装失败还可能导致apt-get不能用，改为 ID=”ubuntu”即可正常安装，重启系统即可输入中文。</p>
+          <p>elementary是基于ubuntu的linux发行版，因为它及其漂亮的界面我第一次见它就深深地喜欢上了，并把elementary作为了常用的系统，没有特殊情况已经基本不打开我的windows了，安装配置过程和ubuntu基本一样，比较坑的就是中文输入了。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/15/elementarySougouInput/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/15/eslint/" itemprop="url">
+                  elementary 下安装搜狗输入法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-15T15:37:08+08:00" content="2016-05-15">
+              2016-05-15
+            </time>
+          </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">programming</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/15/eslint/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/15/eslint/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>对一个开发团队或者产品线来说统一的代码规范是必须的，不规范的代码对后期代码的维护来说是灾难性的。前端代码更是有各种各样的风格，为了世界和平我们还是需要写规范的代码的，下面讲下如何用esling及浏览器插件来帮助我们写出风格统一的前端代码。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/15/eslint/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -562,156 +790,12 @@
 
       
         
-          
-            <p>前段时间有个设计的小伙伴给我推荐了好多日本的网站，个个炫酷到飞起，身为重度前端职业病患者当然会审查元素看一下都是怎么实现的了，看完总结出：日本的网速领先国内好几倍（很多背景是插的mp4……），当然也有一部分是canvas做的，比如<a href="http://marunouchi.mec.co.jp/" target="_blank" rel="external">这个</a>时钟效果。之前就对canvas感兴趣并了解过一点，看过这些网站更坚定了去认真学一下的决心，同时也记了些笔记。</p>
-<h4 id="定义canvas绘制环境"><a href="#定义canvas绘制环境" class="headerlink" title="定义canvas绘制环境"></a>定义canvas绘制环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var canvas = document.getElementById(&apos;canvas&apos;)</span><br><span class="line">if (canvas.getContext(&apos;2d&apos;)) &#123;</span><br><span class="line">	var context = canvas.getContext(&apos;2d&apos;)</span><br><span class="line">&#125;else&#123;</span><br><span class="line">	alert(&apos;不支持canvas&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="线条API"><a href="#线条API" class="headerlink" title="线条API"></a>线条API</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">context.moveTo(x,y);<span class="comment">//绘制起始点</span></span><br><span class="line">context.lineTo(x,y);</span><br><span class="line">context.lineWidth = num;<span class="comment">//线条粗细</span></span><br><span class="line">context.strokeStyle = <span class="string">'color'</span>;<span class="comment">//线条颜色</span></span><br><span class="line">context.fillStyle = <span class="string">'color'</span>;<span class="comment">//填充颜色</span></span><br><span class="line">context.stroke();<span class="comment">//绘制</span></span><br><span class="line">context.fill();<span class="comment">//填充闭合区域</span></span><br><span class="line"><span class="comment">//先stroke再fill会导致边框的一半被填充为背景色</span></span><br><span class="line">context.beginPath();context.closePath();<span class="comment">//闭合工作区</span></span><br><span class="line">context.beginPath();context.closePath();<span class="comment">//区域中的线条会自动闭合。</span></span><br></pre></td></tr></table></figure>
-<h5 id="线条属性"><a href="#线条属性" class="headerlink" title="线条属性"></a>线条属性</h5><h6 id="lineCap"><a href="#lineCap" class="headerlink" title="lineCap"></a>lineCap</h6><p>context.lineCap=’’,线段的端点样式（线段的帽子）<br>三个可选属性：butt(默认),round(圆角),square(方角)；<br>tound和square会比默认长出一点。</p>
-<h6 id="lineJoin"><a href="#lineJoin" class="headerlink" title="lineJoin"></a>lineJoin</h6><p>context.lineJoin=’’,线与线相交处样式<br>三个可选属性：bevel(斜接)，round（圆角），miter（默认，尖角）；</p>
-<h6 id="meterLimit"><a href="#meterLimit" class="headerlink" title="meterLimit"></a>meterLimit</h6><p>context.meterLimit=number,<br>context.lineJoin=’miter’时，实际角与外边角的距离；</p>
-<h4 id="弧线API"><a href="#弧线API" class="headerlink" title="弧线API"></a>弧线API</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">context.arc(conterX,</span><br><span class="line">conterY,<span class="comment">//圆心位置;</span></span><br><span class="line">radius,<span class="comment">//半径;</span></span><br><span class="line">staringAngle,<span class="comment">//起始弧度;</span></span><br><span class="line">endingAngle,<span class="comment">//终止弧度;</span></span><br><span class="line">anticlockwise = <span class="literal">false</span><span class="comment">//是否逆时针;)</span></span><br></pre></td></tr></table></figure>
-<h4 id="矩形API"><a href="#矩形API" class="headerlink" title="矩形API"></a>矩形API</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">context.rect(x,y,width,height);<span class="comment">//规划路径</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">context.fillRect(x,y,width,height);<span class="comment">//直接绘制(填充)</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">context.strokeRect(x,y,width,height);<span class="comment">//直接绘制</span></span><br></pre></td></tr></table></figure>
-<h4 id="图形变换"><a href="#图形变换" class="headerlink" title="图形变换"></a>图形变换</h4><p>位移：<br>用过  translate(x,y)  后接下来再使用translate时会在上次(x,y)的基础上进行位移，所以要在使用后紧跟一句translate(-x,-y)来解决。api解决办法是将每次位移变换放在 save 和 restore 函数中间<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">context.save();</span><br><span class="line">context.fillStyle = <span class="string">"red"</span>;</span><br><span class="line">context.translate(<span class="number">100</span>,<span class="number">100</span>);</span><br><span class="line">context.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">200</span>,<span class="number">200</span>);</span><br><span class="line">context.fill();</span><br><span class="line">context.restore();</span><br><span class="line">context.save();</span><br><span class="line">context.fillStyle = <span class="string">"blue"</span>;</span><br><span class="line">context.translate(<span class="number">200</span>,<span class="number">100</span>);</span><br><span class="line">context.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">200</span>,<span class="number">200</span>);</span><br><span class="line">context.fill();</span><br><span class="line">context.restore();</span><br></pre></td></tr></table></figure></p>
-<p>旋转：rotate（deg）,<br>缩放：scale（sx, xy）</p>
-<h5 id="图形变换矩阵"><a href="#图形变换矩阵" class="headerlink" title="图形变换矩阵"></a>图形变换矩阵</h5><p>transform（a, b, c, d ,e, ,f）</p>
-<blockquote>
-<p>a:水平缩放<br>b:水平倾斜<br>c:垂直倾斜<br>d:垂直缩放<br>e:水平位移<br>f:垂直位移</p>
-</blockquote>
-<p>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cxt.transform(<span class="number">2</span>,<span class="number">0.3</span>,<span class="number">0.3</span>,<span class="number">3</span>,<span class="number">100</span>,<span class="number">100</span>);</span><br></pre></td></tr></table></figure></p>
-<p>多个transform可以叠加效果，但用的太多叠加会导致一些问题，可以用setTransform(a,b,c,d,e,f) 重置原来所有transform，从初始状态开始变换。</p>
-<h4 id="线性渐变"><a href="#线性渐变" class="headerlink" title="线性渐变"></a>线性渐变</h4><p>主要用到两个函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> grd = context.createLinearGradient(startX,startY,endX,endY) <span class="comment">//创建线性渐变</span></span><br><span class="line">grd.addColorStop(stop,color) <span class="comment">//设置渐变关键点</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> grd = context.createLinearGradient(<span class="number">0</span>,<span class="number">0</span>,<span class="number">555</span>,<span class="number">555</span>);</span><br><span class="line">grd.addColorStop(<span class="number">0.0</span>,<span class="string">'#fff'</span>);</span><br><span class="line">grd.addColorStop(<span class="number">1.0</span>,<span class="string">'#111'</span>);</span><br><span class="line">context.fillStyle = grd;</span><br><span class="line">context.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">666</span>,<span class="number">666</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="径向渐变"><a href="#径向渐变" class="headerlink" title="径向渐变"></a>径向渐变</h4><p>和线性渐变相似<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> crg = context.createRadialGradient(<span class="number">400</span>, <span class="number">400</span>, <span class="number">0</span>, <span class="number">400</span>, <span class="number">400</span>, <span class="number">300</span>);<span class="comment">//参数为起止圆x1,y1,r1,x2,y2,r2</span></span><br><span class="line">crg.addColorStop(<span class="number">0.0</span>,<span class="string">"#fff"</span>);</span><br><span class="line">crg.addColorStop(<span class="number">1.0</span>,<span class="string">"#222"</span>);</span><br><span class="line">context.fillStyle = crg;</span><br><span class="line">context.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">766</span>,<span class="number">766</span>);</span><br></pre></td></tr></table></figure></p>
-<h4 id="背景填充"><a href="#背景填充" class="headerlink" title="背景填充"></a>背景填充</h4><p>主要用 createPattern(填充 ,repeat-style);<br>填充可选 img，canvas，video，均为对象形式。<br>repeat-style可选 no-repeat,repeat-x,repeat-y,repeat。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bgimg = <span class="keyword">new</span> Image();</span><br><span class="line">bgimg.src = <span class="string">'image.jpg'</span>;</span><br><span class="line">bgimg.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="keyword">var</span> pattern = context.createPattern(bgimg, <span class="string">'repeat'</span>);</span><br><span class="line">context.fillStyle = pattern;</span><br><span class="line">context.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">800</span>,<span class="number">800</span>);&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="绘制曲线"><a href="#绘制曲线" class="headerlink" title="绘制曲线"></a>绘制曲线</h4><p>1.可用arc()函数。<br><br>2.用arcTo(x1,y1,x2,y2,r),参数为两切点坐标和曲线半径。<br><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">context.moveTo(<span class="number">200</span>,<span class="number">200</span>);</span><br><span class="line">context.arcTo(<span class="number">300</span>,<span class="number">200</span>,<span class="number">400</span>,<span class="number">400</span>,<span class="number">100</span>);</span><br><span class="line">context.strokeStyle = <span class="string">"#cdccdd"</span>;</span><br><span class="line">context.stroke();</span><br></pre></td></tr></table></figure></p>
-<p>3.贝塞尔二次曲线：<br><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">context.moveTo(x,y);</span><br><span class="line">context.quadraticCurveTo(x1,y1,x2,y2);</span><br><span class="line"><span class="comment">//x，y,x2,y2为起始点和终止点坐标，x1，y1为控制点坐标</span></span><br></pre></td></tr></table></figure></p>
-<p>4.贝塞尔三次曲线：<br><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">context.moveTo(x,y);</span><br><span class="line">context.bezierCurveTo(x1,y1,x2,y2,x3,y3);</span><br><span class="line"><span class="comment">//x，y,x3,y3为起始点和终止点坐标，x1,y1,x2，y2为控制点坐标</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="文字渲染"><a href="#文字渲染" class="headerlink" title="文字渲染"></a>文字渲染</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">context.fillText(string ,x,y);<span class="comment">//x,y为起始点坐标</span></span><br><span class="line">context.strokeText(string ,x,y)<span class="comment">//x,y为起始点坐标</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> string = <span class="string">"目标文字"</span>;</span><br><span class="line">context.beginPath();</span><br><span class="line">context.font = <span class="string">'bold 55px Arial'</span>;</span><br><span class="line">context.fillStyle = <span class="string">'#ffff00'</span>;</span><br><span class="line">context.strokeStyle = <span class="string">'#0000ff'</span>;</span><br><span class="line">context.fillText(string , <span class="number">200</span>,<span class="number">200</span>);<span class="comment">//实心文字</span></span><br><span class="line">context.strokeText(string ,<span class="number">200</span>,<span class="number">400</span>);<span class="comment">//只有字体描边</span></span><br><span class="line">context.closePath();</span><br></pre></td></tr></table></figure>
-<p>fillText和strokeText都有第四个可选参数(string ,x,y，maxlen)最大宽度，单位为px，如果有第四个参数文字会被绘制在限定宽度内。<code>context.fillText(string,200,200,400);</code></p>
-<h5 id="font："><a href="#font：" class="headerlink" title="font："></a>font：</h5><p>最多传入五个参数，context.font = ‘font-style，font-variant,font-weight,font-size,font-family’。<br>font-style: normal(default),italic(斜体字)，oblique（倾斜字体）后两者效果基本一样。<br>font-varant: normal(default),small-caps(只用于英文，小型的大写字母).<br>font-weigth: lighter(和normal效果一样)，normal(default)，bold(加粗)，bolder（和bold效果一样）。<br>font-size: 可用px，em，30%这些css方法设置，也有文字属性值，不推荐使用。<br>font-family: 类似css设置多种字体备选，支持@font-face。</p>
-<p>后面会持续更新剩下的api。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/12/test/" itemprop="url">
-                  webpack+vue+vue-router构建大型单页应用（一）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-12T15:39:06+08:00" content="2016-05-12">
-              2016-05-12
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/12/test/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/12/test/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前些日子被boss拉去做一个学校的管理系统，静态页面是已经写好的，看了一下文件目录（一脸蒙逼）<br><img src="http://7xtmfq.com1.z0.glb.clouddn.com/2016-05-02%2018:03:14%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt="文件结构"></p>
-<p> 竟然有35个页面之多，而且许多页面里都有大量的表单，数据量相当大，刚好近期工作室另一个项目用了vue的技术栈,所以也想用vue来构建一个比较大型的单页应用。<br> 至于为啥选这套技术栈主要原因有两个吧，一是比较轻、方便操作，还有就是vue双向数据绑定比较适合项目实际。在接下来的文章中我会从头跟大家分享项目过程中一些比较重要的东西和遇到的一些问题。</p>
-<h3 id="脚手架"><a href="#脚手架" class="headerlink" title="脚手架"></a>脚手架</h3><p>之前一直都在用gulp作为脚手架工具进行检查编译压缩等任务，喜欢它的流的概念，所以最外层还是决定用gulp来搭，下面详细说下用到的一些工具。</p>
-<blockquote>
-<ul>
-<li><a href="https://www.npmjs.com/package/gulp-webpack" target="_blank" rel="external">gulp-webpack</a><br>webpack的gulp版，语法和webpack基本一致，配置好文件入口和出口就可以</li>
-<li><p><a href="https://github.com/vuejs/vue-loader" target="_blank" rel="external">vue-loader</a><br>webpack的vue组件加载器，也是实现vue单页应用的核心工具，用各loader把vue的组件打包成js可以调用的模块。详见 <a href="http://vue-loader.vuejs.org/en/index.html" target="_blank" rel="external">vue-loader</a> GitBook</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">gulp.task(&apos;main&apos;, function() &#123;</span><br><span class="line">    return gulp.src(&apos;src/app.js&apos;)</span><br><span class="line">        .pipe(named())</span><br><span class="line">        .pipe(webpack(&#123;</span><br><span class="line">            module: &#123;</span><br><span class="line">                loaders: [&#123;</span><br><span class="line">                    test: /\.vue$/,</span><br><span class="line">                    loader: &apos;vue&apos;</span><br><span class="line">                &#125;, &#123;</span><br><span class="line">                    test: /\.less$/,</span><br><span class="line">                    loader: &apos;less&apos;</span><br><span class="line">                &#125;, &#123;</span><br><span class="line">                    test: /\.jade$/,</span><br><span class="line">                    loader: &apos;jade&apos;</span><br><span class="line">                &#125;, &#123;</span><br><span class="line">                    test: /\.js$/,</span><br><span class="line">                    loader: &apos;babel&apos;</span><br><span class="line">                &#125;, &#123;</span><br><span class="line">                    test: /\.png|jpg$/,</span><br><span class="line">                    loader: &apos;url?limit=40000&apos;</span><br><span class="line">                &#125;]</span><br><span class="line">            &#125;,</span><br><span class="line">            watch: true,//监控文件变化实时编译</span><br><span class="line">            devtool: &apos;source-map&apos;//生成map文件</span><br><span class="line">        &#125;))</span><br><span class="line">        .pipe(gulp.dest(&apos;dist/&apos;))</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="https://www.npmjs.com/package/gulp-uglify" target="_blank" rel="external">gulp-uglify</a> <a href="https://www.npmjs.com/package/gulp-minify" target="_blank" rel="external">gulp-minify</a><br>用的比较多的代码丑化和压缩工具</p>
-</li>
-<li><a href="https://www.npmjs.com/package/gulp-md5" target="_blank" rel="external">gulp-md5</a><br>为打包压缩的文件加md5戳的工具，方便生产环境下控制缓存<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">gulp.task(&apos;build&apos;,[&apos;main&apos;], function() &#123;</span><br><span class="line">    return gulp.src(&apos;dist/*.js&apos;)</span><br><span class="line">        .pipe(uglify())</span><br><span class="line">        .pipe(minify(&#123;</span><br><span class="line">            ignoreFiles:[&apos;*.map.js&apos;]</span><br><span class="line">        &#125;))</span><br><span class="line">        .pipe(md5(6))</span><br><span class="line">        .pipe(gulp.dest(&apos;dist/output/&apos;))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<p>同时还引入了 jade less vue vue-router 等 package。完整的依赖也列一下吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;babel&quot;: &quot;^6.5.2&quot;,</span><br><span class="line">    &quot;babel-core&quot;: &quot;^6.7.7&quot;,</span><br><span class="line">    &quot;babel-loader&quot;: &quot;^6.2.4&quot;,</span><br><span class="line">    &quot;babel-plugin-transform-runtime&quot;: &quot;^6.7.5&quot;,</span><br><span class="line">    &quot;babel-preset-es2015&quot;: &quot;^6.6.0&quot;,</span><br><span class="line">    &quot;babel-preset-stage-2&quot;: &quot;^6.5.0&quot;,</span><br><span class="line">    &quot;babel-runtime&quot;: &quot;^5.8.38&quot;,</span><br><span class="line">    &quot;css-loader&quot;: &quot;^0.23.1&quot;,</span><br><span class="line">    &quot;file-loader&quot;: &quot;^0.8.5&quot;,</span><br><span class="line">    &quot;gulp&quot;: &quot;^3.9.1&quot;,</span><br><span class="line">    &quot;gulp-md5&quot;: &quot;^0.1.2&quot;,</span><br><span class="line">    &quot;gulp-minify&quot;: &quot;0.0.11&quot;,</span><br><span class="line">    &quot;gulp-uglify&quot;: &quot;^1.5.3&quot;,</span><br><span class="line">    &quot;gulp-webpack&quot;: &quot;^1.5.0&quot;,</span><br><span class="line">    &quot;less&quot;: &quot;^2.6.1&quot;,</span><br><span class="line">    &quot;less-loader&quot;: &quot;^2.2.3&quot;,</span><br><span class="line">    &quot;vinyl-named&quot;: &quot;^1.1.0&quot;,</span><br><span class="line">    &quot;vue&quot;: &quot;^1.0.21&quot;,</span><br><span class="line">    &quot;vue-hot-reload-api&quot;: &quot;^1.3.2&quot;,</span><br><span class="line">    &quot;vue-html-loader&quot;: &quot;^1.2.2&quot;,</span><br><span class="line">    &quot;vue-loader&quot;: &quot;^8.2.3&quot;,</span><br><span class="line">    &quot;vue-router&quot;: &quot;^0.7.13&quot;,</span><br><span class="line">    &quot;vue-style-loader&quot;: &quot;^1.0.0&quot;,</span><br><span class="line">    &quot;webpack&quot;: &quot;^1.13.0&quot;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>以后会参考<a href="https://github.com/vuejs/vue-cli" target="_blank" rel="external">vue-cli</a> 中 <a href="https://github.com/vuejs-templates/webpack" target="_blank" rel="external">webpack</a>的例子加入代码检查和测试工具并进一步完善。<br>下一篇会介绍下文件结构和各组件拆分逻辑。</p>
-
-          
+          <p>前段时间有个设计的小伙伴给我推荐了好多日本的网站，个个炫酷到飞起，身为重度前端职业病患者当然会审查元素看一下都是怎么实现的了，看完总结出：日本的网速领先国内好几倍（很多背景是插的mp4……），当然也有一部分是canvas做的，比如<a href="http://marunouchi.mec.co.jp/">这个</a>时钟效果。之前就对canvas感兴趣并了解过一点，看过这些网站更坚定了去认真学一下的决心，同时也记了些笔记。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/15/canvasApi/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -779,7 +863,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -796,7 +880,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
